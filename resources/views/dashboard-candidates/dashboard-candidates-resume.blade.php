@@ -169,12 +169,13 @@
                                         <span class="jobber-timeline-time">@{{ data.resume_education_from_month + ", " + data.resume_education_from_year }} -
                                             @{{ data.resume_education_to_month + ", " + data.resume_education_to_year }}</span>
                                             <h6 class="mb-2">@{{ data.resume_education_level }}</h6>
-                                            <span>- @{{ data.resume_education_institution }} @{{ data.resume_education_level }}</span>
+                                            <span>- @{{ data.resume_education_institution }} @{{ data.resume_education_level }} @{{ data.resume_education_institution }}</span>
                                             {{-- <p class="mt-2"></p> --}}
                                         </div>
                                         <div class="collapse show" id="" v-if="!data.visible">
                                             <div class="bg-light p-3">
-                                                <form class="form-row collapse show" id="dateposted-01">
+                                                <form  @submit.prevent="resumeEducationUpdate" class="form-row collapse show" id="dateposted-01">
+
                                                     <div class="form-group col-md-6">
                                                         <label>Education Level</label>
                                                         <select class="form-control" name="education_level_list" id="education_level_list" v-model="data.education_level_list">
@@ -189,20 +190,18 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Institute</label>
-                                                        <input type="text" class="form-control" name="education_institution_list" id="education_institution_list" v-model="education_institution_list" value="@{{ data.education_institution_list }}">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>City</label>
-                                                        <select class="form-control">
-                                                            <option>Karachi</option>
-                                                            <option>Kuala Lumpur</option>
-                                                        </select>
+                                                        <input type="text" class="form-control" name="education_institution_list" id="education_institution_list" v-model="data.education_institution_list" value="{{ old('education_institution_list') }}">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Country</label>
-                                                        <select class="form-control">
-                                                            <option>Malaysia</option>
-                                                            <option>Pakistan</option>
+                                                        <select class="form-control" name="education_country_list" id="education_country_list" v-model="data.education_country_list">
+                                                        <option v-for="data in arr_education_country_list" :value="data.id">@{{ data.country_name }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>City</label>
+                                                        <select class="form-control" name="education_city_list" id="education_city_list" v-model="data.education_city_list">
+                                                        <option v-for="data in arr_education_city_list" :value="data.city_id">@{{ data.city_name }}</option>
                                                         </select>
                                                     </div>
 
@@ -225,109 +224,39 @@
                                                     </div>
                                                     <div class="form-group col-md-3 select-border">
                                                         <label>From</label>
-                                                        <select class="form-control">
-                                                            <option value="value 01">January</option>
-                                                            <option value="value 02">February</option>
-                                                            <option value="value 03">March</option>
-                                                            <option value="value 05">April</option>
-                                                            <option value="value 06">May</option>
-                                                            <option value="value 07">June</option>
-                                                            <option value="value 08">July</option>
-                                                            <option value="value 09">August</option>
-                                                            <option value="value 10">September</option>
-                                                            <option value="value 11">October</option>
-                                                            <option value="value 12">November</option>
-                                                            <option value="value 13">December</option>
+                                                        <select class="form-control" name="education_work_from_month_list" id="education_work_from_month_list" v-model="data.education_work_from_month_list">
+                                                            <option v-for="data in arr_education_work_from_month_list" :value="data.month_id">@{{ data.month_name }}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3 select-border">
                                                         <label> &nbsp; </label>
-                                                        <select class="form-control">
-                                                            <option value="value 01">2020</option>
-                                                            <option value="value 02">2008</option>
-                                                            <option value="value 03">2009</option>
-                                                            <option selected="selected" value="value 04">2010</option>
-                                                            <option value="value 05">2011</option>
-                                                            <option value="value 06">2012</option>
-                                                            <option value="value 07">2013</option>
-                                                            <option value="value 08">2014</option>
-                                                            <option value="value 09">2015</option>
-                                                            <option value="value 10">2016</option>
-                                                            <option value="value 11">2017</option>
-                                                            <option value="value 12">2018</option>
-                                                            <option value="value 13">2019</option>
-                                                            <option value="value 14">2020</option>
-                                                            <option value="value 15">2021</option>
-                                                            <option value="value 16">2022</option>
-                                                            <option value="value 17">2023</option>
-                                                            <option value="value 18">2024</option>
-                                                            <option value="value 19">2025</option>
-                                                            <option value="value 20">2026</option>
-                                                            <option value="value 21">2027</option>
-                                                            <option value="value 22">2028</option>
-                                                            <option value="value 23">2029</option>
-                                                            <option value="value 14">2030</option>
-                                                        </select>
+                                                        <input type="text" name="education_work_from_year_list" id="education_work_from_year_list" class="form-control" value=""
+                                                        placeholder="Year" v-model="data.education_work_from_year_list">
                                                     </div>
 
                                                     <div class="form-group col-md-3 select-border">
                                                         <label class="study-yes-no">To</label>
-                                                        <select class="form-control study-yes-no">
-                                                            <option value="value 01">January</option>
-                                                            <option value="value 02">February</option>
-                                                            <option value="value 03">March</option>
-                                                            <option value="value 05" selected="selected">April</option>
-                                                            <option value="value 06">May</option>
-                                                            <option value="value 07">June</option>
-                                                            <option value="value 08">July</option>
-                                                            <option value="value 09">August</option>
-                                                            <option value="value 10">September</option>
-                                                            <option value="value 11">October</option>
-                                                            <option value="value 12">November</option>
-                                                            <option value="value 13">December</option>
+                                                        <select class="form-control study-yes-no" name="education_work_to_month_list" id="education_work_to_month_list" v-model="data.education_work_to_month_list">
+                                                            <option v-for="data in arr_education_work_to_month_list" :value="data.month_id">@{{ data.month_name }}</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group col-md-3 select-border">
                                                         <div class="study-yes-no">
                                                             <label>&nbsp;</label>
-                                                            <select class="form-control">
-                                                                <option value="value 01">2020</option>
-                                                                <option value="value 02">2008</option>
-                                                                <option value="value 03">2009</option>
-                                                                <option value="value 04">2010</option>
-                                                                <option value="value 05">2011</option>
-                                                                <option value="value 06">2012</option>
-                                                                <option value="value 07">2013</option>
-                                                                <option value="value 08" selected="selected">2014</option>
-                                                                <option value="value 09">2015</option>
-                                                                <option value="value 10">2016</option>
-                                                                <option value="value 11">2017</option>
-                                                                <option value="value 12">2018</option>
-                                                                <option value="value 13">2019</option>
-                                                                <option value="value 14">2020</option>
-                                                                <option value="value 15">2021</option>
-                                                                <option value="value 16">2022</option>
-                                                                <option value="value 17">2023</option>
-                                                                <option value="value 18">2024</option>
-                                                                <option value="value 19">2025</option>
-                                                                <option value="value 20">2026</option>
-                                                                <option value="value 21">2027</option>
-                                                                <option value="value 22">2028</option>
-                                                                <option value="value 23">2029</option>
-                                                                <option value="value 14">2030</option>
-                                                            </select>
+                                                            <input type="text" name="education_work_to_year_list" id="education_work_to_year_list" class="form-control" value=""
+                                                            placeholder="Year" v-model="data.education_work_to_year_list">
                                                         </div>
                                                     </div>
 
 
                                                     <div class="form-group col-md-6">
                                                         <label>Major Courses</label>
-                                                        <input type="text" class="form-control" name="">
+                                                        <input type="text" class="form-control" name="" id="">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label> &nbsp; </label>
-                                                        <input type="text" class="form-control" name="">
+                                                        <input type="text" class="form-control" name="" id="">
                                                     </div>
 
                                                     <a href="javascript:void(0);"
@@ -335,7 +264,7 @@
                                                             style="font-size:12px;" class="fa fa-plus"></i> Add More Courses
                                                     </a> <span style="display:none;" id="remaining1">4</span>
 
-                                                    <button class="btn btn-md btn-primary">Update</button>
+                                                    <button @click="resumeEducationUpdate()" class="btn btn-md btn-primary">Update</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -948,6 +877,7 @@
                 el: "#wrapper",
                 data() {
                     return {
+                        // Education Submit
                         education_level: 0,
                         arr_education_level: [],
                         education_field: 0,
@@ -966,6 +896,9 @@
                         candidate_education_to_year: '',
                         candidate_major_one: '',
                         candidate_major_two: '',
+                        educationOutput: '',
+
+                        // Work Exprience Submit
                         candidate_work_title: '',
                         candidate_work_company: '',
                         work_city: 0,
@@ -987,10 +920,11 @@
                         arr_work_to_month: [],
                         work_to_year: '',
                         candidate_work_description: '',
-                        educationOutput: '',
                         experienceOutput: '',
                         arr_get_education_list: [],
                         visible: true,
+
+                        // Education Update
                         education_level_list: '',
                         arr_education_level_list: [],
                         education_field_list: '',
@@ -1001,11 +935,14 @@
                         education_city_list: '',
                         arr_education_city_list: [],
                         education_work_from_month_list: '',
-                        arr_education_work_from_year_list: [],
+                        arr_education_work_from_month_list: [],
+                        education_work_from_year_list: '',
                         education_work_to_month_list: '',
-                        arr_education_work_to_year_list: [],
+                        arr_education_work_to_month_list: [],
+                        education_work_to_year_list: '',
                         education_major_list: '',
-                        arr_education_major_list: []
+                        arr_education_major_list: [],
+                        educationUpdate: ''
                     }
                 },
                 methods: {
@@ -1153,6 +1090,48 @@
                         axios.get('api/getEducationField').then(function(response) {
                             this.arr_education_field_list = response.data;
                         }.bind(this));
+                    },
+                    getEducationCountryList: function() {
+                        axios.get('api/getCountries').then(function(response) {
+                            this.arr_education_country_list = response.data;
+                        }.bind(this));
+                    },
+                    getEducationCityList: function() {
+                        axios.get('api/getCitiesList').then(function(response) {
+                            this.arr_education_city_list = response.data;
+                        }.bind(this));
+                    },
+                    getEducationWorkMonthFrom: function() {
+                        axios.get('api/getMonth').then(function(response) {
+                            this.arr_education_work_from_month_list = response.data;
+                        }.bind(this));
+                    },
+                    getEducationWorkMonthTo: function() {
+                        axios.get('api/getMonth').then(function(response) {
+                            this.arr_education_work_to_month_list = response.data;
+                        }.bind(this));
+                    },
+                    resumeEducationUpdate: function() {
+
+                        let currentObj = false;
+                        axios.patch('dashboard-candidates-resume-experience/update', {
+                            resume_education_level: this.education_level_list,
+                            resume_education_field: this.education_field_list,
+                            resume_education_institution: this.education_institution_list,
+                            resume_education_country: this.education_country_list,
+                            resume_education_city: this.education_city_list,
+                            resume_education_from_month: this.education_work_from_month_list,
+                            resume_education_from_year: this.education_work_from_year_list,
+                            resume_education_to_month: this.education_work_to_month_list,
+                            resume_education_to_year: this.education_work_to_year_list
+
+                        }).then(function (response) {
+                            currentObj.educationUpdate = response.data;
+                        }).then(response => {
+                            window.location = response.data.redirect;
+                        }).catch(function (error) {
+                            currentObj.educationUpdate = error;
+                        });
                     }
                 },
                 created: function() {
@@ -1173,6 +1152,10 @@
                     this.getEducationList();
                     this.getEducationLevelList();
                     this.getEducationFieldList();
+                    this.getEducationCountryList();
+                    this.getEducationCityList();
+                    this.getEducationWorkMonthFrom();
+                    this.getEducationWorkMonthTo();
                 }
             });
 

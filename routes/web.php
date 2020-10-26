@@ -24,5 +24,6 @@ Route::get('dashboard-candidates-resume', [DashboardCandidate\CandidateResumeCon
 Route::post('dashboard-candidates-resume-education/submit', [DashboardCandidate\CandidateResumeController::class, 'getResumeEducation']);
 Route::get('dashboard-candidates-resume-education-list/candidate-id={id}', [DashboardCandidate\CandidateResumeController::class, 'getResumeEducationList']);
 Route::post('dashboard-candidates-resume-experience/submit', [DashboardCandidate\CandidateResumeController::class, 'getResumeWorkExperience']);
+Route::patch('dashboard-candidates-resume-experience/update', [DashboardCandidate\CandidateResumeController::class, 'getResumeWorkExperienceUpdate']);
 
 Route::get('dashboard-candidates-job-preferences', [DashboardCandidate\CandidateJobPreferenceController::class, 'getJobPreference']);

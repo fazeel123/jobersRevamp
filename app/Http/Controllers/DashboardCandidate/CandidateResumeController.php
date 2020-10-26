@@ -23,11 +23,14 @@ class CandidateResumeController extends Controller
         $education = CandidateResumeEducationModel::where('resume_education_candidate', $id)->get();
 
         return response()->json($education);
-
-
     }
 
     public function getResumeWorkExperience(Request $request)
+    {
+        dd(request()->all());
+    }
+
+    public function getResumeWorkExperienceUpdate(Request $request)
     {
         dd(request()->all());
     }
