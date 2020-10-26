@@ -4,6 +4,7 @@ namespace App\Http\Controllers\DashboardCandidate;
 
 use App\Http\Controllers\Controller;
 use App\Models\CandidateResumeEducationModel;
+use App\Models\CandidateResumeWorkExperienceModel;
 use Illuminate\Http\Request;
 
 class CandidateResumeController extends Controller
@@ -33,5 +34,12 @@ class CandidateResumeController extends Controller
     public function getResumeWorkExperienceUpdate(Request $request)
     {
         dd(request()->all());
+    }
+
+    public function getResumeWorkExperienceList($id)
+    {
+        $experience = CandidateResumeWorkExperienceModel::where('resume_experience_candidate', $id)->get();
+
+        return response()->json($experience);
     }
 }

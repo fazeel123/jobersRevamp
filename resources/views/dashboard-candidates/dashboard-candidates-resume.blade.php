@@ -301,7 +301,7 @@
                                         </div>
                                         <div class="form-group col-md-6 exp-div">
                                             <label>Title</label>
-                                            <input type="text" class="form-control" name="candidate_work_title" id="candidate_work_title" v--model="candidate_work_title" placeholder="Job Title" value="">
+                                            <input type="text" class="form-control" name="candidate_work_title" id="candidate_work_title" v-model="candidate_work_title" placeholder="Job Title" value="">
                                         </div>
                                         <div class="form-group col-md-6 exp-div">
                                             <label>Company Name</label>
@@ -394,11 +394,12 @@
                                     </form>
                                 </div>
                             </div>
+
                             <div class="jobber-candidate-timeline mt-4 exp-div">
                                 <div class="jobber-timeline-icon">
                                     <i class="fas fa-briefcase"></i>
                                 </div>
-                                <div class="jobber-timeline-item">
+                                <div v-for="data in arr_get_work_experience_list" v-if="data.resume_experience_present == 0" :key="data.resume_experience_id" class="jobber-timeline-item">
                                     <div class="jobber-timeline-cricle">
                                         <i class="far fa-circle"></i>
                                     </div>
@@ -408,256 +409,117 @@
                                                 <ul class="list-unstyled d-flex">
                                                     <li><a class="text-right" data-toggle="collapse" href="#dateposted-06"
                                                             role="button" aria-expanded="false" aria-controls="dateposted">
-                                                            <i class="fas fa-pencil-alt text-info mr-2"></i> </a></li>
+                                                            <i class="fas fa-pencil-alt text-info mr-2" v-on:click="data.visible_list = !data.visible_list"></i> </a></li>
                                                     <li><a href="#"><i class="far fa-trash-alt text-danger"></i></a></li>
                                                 </ul>
                                             </div>
-                                            <span class="jobber-timeline-time">2020-6-01 to 2020-6-01</span>
-                                            <h6 class="mb-2">Web Designer</h6>
-                                            <span>- Inwave Studio</span>
-                                            <p class="mt-2">One of the main areas that I work on with my clients is shedding
-                                                these non-supportive beliefs and replacing them with beliefs that will help
-                                                them
-                                                to accomplish their desires.</p>
+                                            <span class="jobber-timeline-time">@{{ data.resume_experience_from_month + ", " + data.resume_experience_from_year }} -
+                                                @{{ data.resume_experience_to_month + ", " + data.resume_experience_to_year }}</span>
+                                            <h6 class="mb-2">@{{ data.resume_experience_job_title }}</h6>
+                                            <span>- @{{ data.resume_experience_company }}</span>
+                                            <p class="mt-2">@{{ data.resume_experience_description }}</p>
                                         </div>
-                                        <div class="collapse show" id="dateposted-06">
+                                        <div class="collapse show" id="" v-if="!data.visible_list">
                                             <div class="bg-light p-3">
-                                                <form class="form-row collapse show" id="dateposted-form-01">
-                                                    <div class="form-group col-md-6">
+                                                <form  class="form-row">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Title</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" name="candidate_work_title_list" id="candidate_work_title_list" v-model="data.candidate_work_title_list" placeholder="Job Title" value="">
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Company name</label>
-                                                        <input type="text" class="form-control" value="">
+                                                    <div class="form-group col-md-6 exp-div">
+                                                        <label>Company Name</label>
+                                                        <input type="text" class="form-control" name="candidate_work_company_list" id="candidate_work_company_list" v-model="data.candidate_work_company_list" placeholder="Company Name" value="">
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label>City</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Country</label>
-                                                        <select class="form-control national-country">
-                                                            <option>Malaysia</option>
-                                                            <option>Pakistan</option>
+                                                        <select class="form-control national-country" name="candidate_work_country_list" id="candidate_work_country_list" v-model="data.work_country_list">
+                                                            <option value="0">Select any Country</option>
+                                                            <option v-for="data in arr_work_country_list" :value="data.id">@{{ data.country_name }}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6 exp-div">
+                                                        <label>City</label>
+                                                        <select class="form-control national-country_list" name="candidate_work_city_list" id="candidate_work_city_list" v-model="data.work_city_list">
+                                                            <option value="0">Select any City</option>
+                                                            <option v-for="data in arr_work_city_list" :value="data.city_id">@{{ data.city_name }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Career Level</label>
-                                                        <select class="form-control national-country">
-                                                            <option>Sr</option>
-                                                            <option>Jr</option>
+                                                        <select class="form-control national-country" name="candidate_work_career_list" id="candidate_work_career_list" v-model="data.work_career_list">
+                                                            <option value="0">Select any Career Level</option>
+                                                            <option v-for="data in arr_work_career_list" :value="data.career_level_id">@{{ data.career_level_name }}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Job Type</label>
-                                                        <select class="form-control national-country">
-                                                            <option>Full Time</option>
-                                                            <option>Part Time</option>
+                                                        <select class="form-control national-country" name="candidate_work_type_list" id="candidate_work_type_list" v-model="data.work_type_list">
+                                                            <option value="0">Select any Job Type</option>
+                                                            <option v-for="data in arr_work_type_list" :value="data.job_type_id">@{{ data.job_type_name }}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Job Industry</label>
-                                                        <select class="form-control national-country">
-                                                            <option>IT</option>
-                                                            <option>Finance</option>
+                                                        <select class="form-control national-country" name="candidate_work_industry_list" id="candidate_work_industry_list" v-model="data.work_industry_list">
+                                                            <option value="0">Select any Job Industry</option>
+                                                            <option v-for="data in arr_work_industry_list" :value="data.industry_id">@{{ data.industry_name }}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <label>Department</label>
-                                                        <select class="form-control national-country">
-                                                            <option>Operations</option>
-                                                            <option>Accounts</option>
+                                                        <select class="form-control national-country" name="candidate_work_department_list" id="candidate_work_department_list" v-model="data.work_department_list">
+                                                            <option value="0">Select any Job Department</option>
+                                                            <option v-for="data in arr_work_department_list" :value="data.industry_id">@{{ data.specialization_one }}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-3 select-border">
+                                                    <div class="form-group col-md-3 select-border exp-div">
                                                         <label>From</label>
-                                                        <select class="form-control">
-                                                            <option value="value 01">January</option>
-                                                            <option value="value 02">February</option>
-                                                            <option value="value 03">March</option>
-                                                            <option value="value 05">April</option>
-                                                            <option value="value 06">May</option>
-                                                            <option value="value 07">June</option>
-                                                            <option value="value 08">July</option>
-                                                            <option value="value 09">August</option>
-                                                            <option value="value 10">September</option>
-                                                            <option value="value 11">October</option>
-                                                            <option value="value 12">November</option>
-                                                            <option value="value 13">December</option>
+                                                        <select class="form-control" name="candidate_work_from_month_list" id="candidate_work_from_month_list" v-model="data.work_from_month_list">
+                                                            <option value="0">Select any Month</option>
+                                                            <option v-for="data in arr_work_from_month_list" :value="data.month_id">@{{ data.month_name}}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-3 select-border">
+                                                    <div class="form-group col-md-3 select-border exp-div">
                                                         <label> &nbsp; </label>
-                                                        <select class="form-control">
-                                                            <option value="value 01">2020</option>
-                                                            <option value="value 02">2008</option>
-                                                            <option value="value 03">2009</option>
-                                                            <option selected="selected" value="value 04">2010</option>
-                                                            <option value="value 05">2011</option>
-                                                            <option value="value 06">2012</option>
-                                                            <option value="value 07">2013</option>
-                                                            <option value="value 08">2014</option>
-                                                            <option value="value 09">2015</option>
-                                                            <option value="value 10">2016</option>
-                                                            <option value="value 11">2017</option>
-                                                            <option value="value 12">2018</option>
-                                                            <option value="value 13">2019</option>
-                                                            <option value="value 14">2020</option>
-                                                            <option value="value 15">2021</option>
-                                                            <option value="value 16">2022</option>
-                                                            <option value="value 17">2023</option>
-                                                            <option value="value 18">2024</option>
-                                                            <option value="value 19">2025</option>
-                                                            <option value="value 20">2026</option>
-                                                            <option value="value 21">2027</option>
-                                                            <option value="value 22">2028</option>
-                                                            <option value="value 23">2029</option>
-                                                            <option value="value 14">2030</option>
+                                                        <input type="text" class="form-control" name="candidate_work_from_year_list" id="candidate_work_from_year_list" v-model="data.work_from_year_list" value="" placeholder="Year">
+                                                    </div>
+
+                                                    <div class="form-group col-md-3 select-border exp-div">
+                                                        <label class="workpresent-to">To</label>
+                                                        <select class="form-control workpresent-to" name="candidate_work_to_month_list" id="candidate_work_to_month_list" v-model="data.work_to_month_list">
+                                                            <option value="0">Select any Month</option>
+                                                            <option v-for="data in arr_work_to_month_list" :value="data.month_id">@{{ data.month_name}}</option>
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-group col-md-3 select-border">
-                                                        <label>To</label>
-                                                        <select class="form-control">
-                                                            <option value="value 01">January</option>
-                                                            <option value="value 02">February</option>
-                                                            <option value="value 03">March</option>
-                                                            <option value="value 05" selected="selected">April</option>
-                                                            <option value="value 06">May</option>
-                                                            <option value="value 07">June</option>
-                                                            <option value="value 08">July</option>
-                                                            <option value="value 09">August</option>
-                                                            <option value="value 10">September</option>
-                                                            <option value="value 11">October</option>
-                                                            <option value="value 12">November</option>
-                                                            <option value="value 13">December</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group col-md-3 select-border">
-                                                        <div>
+                                                    <div class="form-group col-md-3 select-border exp-div ">
+                                                        <div class="workpresent-to">
                                                             <label>&nbsp;</label>
-                                                            <select class="form-control">
-                                                                <option value="value 01">2020</option>
-                                                                <option value="value 02">2008</option>
-                                                                <option value="value 03">2009</option>
-                                                                <option value="value 04">2010</option>
-                                                                <option value="value 05">2011</option>
-                                                                <option value="value 06">2012</option>
-                                                                <option value="value 07">2013</option>
-                                                                <option value="value 08" selected="selected">2014</option>
-                                                                <option value="value 09">2015</option>
-                                                                <option value="value 10">2016</option>
-                                                                <option value="value 11">2017</option>
-                                                                <option value="value 12">2018</option>
-                                                                <option value="value 13">2019</option>
-                                                                <option value="value 14">2020</option>
-                                                                <option value="value 15">2021</option>
-                                                                <option value="value 16">2022</option>
-                                                                <option value="value 17">2023</option>
-                                                                <option value="value 18">2024</option>
-                                                                <option value="value 19">2025</option>
-                                                                <option value="value 20">2026</option>
-                                                                <option value="value 21">2027</option>
-                                                                <option value="value 22">2028</option>
-                                                                <option value="value 23">2029</option>
-                                                                <option value="value 14">2030</option>
-                                                            </select>
+                                                            <input type="text" class="form-control" name="candidate_work_to_year_list" id="candidate_work_to_year_list" v-model="data.work_to_year_list" value="" placeholder="Year">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-md-6 select-border">
+                                                    <div class="form-group col-md-6 exp-div">
                                                         <div class="custom-control custom-checkbox d-inline">
-                                                            <input type="checkbox" id="" name="workpresent"
-                                                                class="custom-control-input">
-                                                            <label class="custom-control-label"
-                                                                for="workpresent">Present</label>
+                                                            <input type="checkbox" id="workpresent" name="workpresent"
+                                                                class="workpresent custom-control-input">
+                                                            <label class="custom-control-label" for="workpresent">Currently Working
+                                                                Here</label>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-md-12 exp-div">
                                                         <label>Description</label>
-                                                        <textarea class="form-control desc" rows="4"></textarea>
+                                                        <textarea class="form-control desc" rows="4" name="candidate_work_description_list" id="candidate_work_description_list" v-model="data.candidate_work_description_list"></textarea>
                                                     </div>
-                                                    <div class="form-group col-md-12 mb-0">
-                                                        <a class="btn btn-md btn-primary" href="#">Save</a>
+                                                    <div class="form-group col-md-12 mb-0 exp-div">
+                                                        <button  class="btn btn-md btn-primary">Update</button>
                                                     </div>
+
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="jobber-timeline-item mb-0">
-                                    <div class="jobber-timeline-cricle">
-                                        <i class="far fa-circle"></i>
-                                    </div>
-                                    <div class="jobber-timeline-info">
-                                        <div class="dashboard-timeline-info">
-                                            <div class="dashboard-timeline-edit">
-                                                <ul class="list-unstyled d-flex">
-                                                    <li><a class="text-right" data-toggle="collapse" href="#dateposted-07"
-                                                            role="button" aria-expanded="false" aria-controls="dateposted">
-                                                            <i class="fas fa-pencil-alt text-info mr-2"></i> </a></li>
-                                                    <li><a href="#"><i class="far fa-trash-alt text-danger"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <span class="jobber-timeline-time">2020-6-01 to 2020-6-01</span>
-                                            <h6 class="mb-2">Secondary School Certificate</h6>
-                                            <span>- Engineering High School</span>
-                                            <p class="mt-2">Figure out what you want, put a plan together to achieve it,
-                                                understand the cost, believe in yourself then go and get it!</p>
-                                        </div>
-                                        <div class="collapse" id="dateposted-07">
-                                            <div class="bg-light p-3">
-                                                <form class="form-row collapse show" id="dateposted-form-02">
-                                                    <div class="form-group col-md-12">
-                                                        <label>Title</label>
-                                                        <input type="text" class="form-control"
-                                                            value="Secondary School Certificate">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Company name</label>
-                                                        <input type="text" class="form-control"
-                                                            value="Engineering High School">
-                                                    </div>
-                                                    <div class="form-group col-md-6 select-border">
-                                                        <label>From</label>
-                                                        <div class="input-group date" id="datetimepicker-05"
-                                                            data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input"
-                                                                value="08/11/1999" data-target="#datetimepicker-05">
-                                                            <div class="input-group-append" data-target="#datetimepicker-05"
-                                                                data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i
-                                                                        class="far fa-calendar-alt"></i></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-6 select-border">
-                                                        <label>Two</label>
-                                                        <div class="input-group date" id="datetimepicker-06"
-                                                            data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input"
-                                                                value="08/11/1999" data-target="#datetimepicker-06">
-                                                            <div class="input-group-append" data-target="#datetimepicker-06"
-                                                                data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i
-                                                                        class="far fa-calendar-alt"></i></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Description</label>
-                                                        <textarea class="form-control desc" rows="4"
-                                                            placeholder="Figure out what you want, put a plan together to achieve it, understand the cost, believe in yourself then go and get it!"></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-12 mb-0">
-                                                        <a class="btn btn-md btn-primary" href="#">Update</a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <!--=================================
@@ -922,7 +784,7 @@
                         candidate_work_description: '',
                         experienceOutput: '',
                         arr_get_education_list: [],
-                        visible: true,
+
 
                         // Education Update
                         education_level_list: '',
@@ -942,7 +804,35 @@
                         education_work_to_year_list: '',
                         education_major_list: '',
                         arr_education_major_list: [],
-                        educationUpdate: ''
+                        arr_get_education_list: [],
+                        educationUpdate: '',
+                        visible: true,
+
+                        // Work Experience Update
+                        candidate_work_title_list: '',
+                        candidate_work_company_list: '',
+                        work_city_list: 0,
+                        arr_work_city_list: [],
+                        work_country_list: 0,
+                        arr_work_country_list: [],
+                        work_career_list: 0,
+                        arr_work_career_list: [],
+                        work_type_list: 0,
+                        arr_work_type_list: [],
+                        work_industry_list: 0,
+                        arr_work_industry_list: [],
+                        work_department_list: 0,
+                        arr_work_department_list: [],
+                        work_from_month_list: 0,
+                        arr_work_from_month_list: [],
+                        work_from_year_list: '',
+                        work_to_month_list: 0,
+                        arr_work_to_month_list: [],
+                        work_to_year_list: '',
+                        candidate_work_description_list: '',
+                        arr_get_work_experience_list: [],
+                        experienceUpdate: '',
+                        visible_list: true
                     }
                 },
                 methods: {
@@ -1132,6 +1022,67 @@
                         }).catch(function (error) {
                             currentObj.educationUpdate = error;
                         });
+                    },
+                    getWorkExperienceList: function() {
+                        axios.get('/dashboard-candidates-resume-experience-list/candidate-id=1').then(function(response) {
+                            this.arr_get_work_experience_list = response.data.map(arr_get_work_experience_list => {
+                                arr_get_work_experience_list.visible_list = true;
+                                arr_get_work_experience_list.candidate_work_title_list = arr_get_work_experience_list.resume_experience_job_title;
+                                arr_get_work_experience_list.candidate_work_company_list = arr_get_work_experience_list.resume_experience_company;
+                                arr_get_work_experience_list.work_country_list = arr_get_work_experience_list.resume_experience_country;
+                                arr_get_work_experience_list.work_city_list = arr_get_work_experience_list.resume_experience_city;
+                                arr_get_work_experience_list.work_career_list = arr_get_work_experience_list.resume_experience_career_level;
+                                arr_get_work_experience_list.work_type_list = arr_get_work_experience_list.resume_experience_job_type;
+                                arr_get_work_experience_list.work_industry_list = arr_get_work_experience_list.resume_experience_industry;
+                                arr_get_work_experience_list.work_department_list = arr_get_work_experience_list.resume_experience_department;
+                                arr_get_work_experience_list.work_from_month_list = arr_get_work_experience_list.resume_experience_from_month;
+                                arr_get_work_experience_list.work_from_year_list = arr_get_work_experience_list.resume_experience_from_year;
+                                arr_get_work_experience_list.work_to_month_list = arr_get_work_experience_list.resume_experience_to_month;
+                                arr_get_work_experience_list.work_to_year_list = arr_get_work_experience_list.resume_experience_to_year;
+                                arr_get_work_experience_list.candidate_work_description_list = arr_get_work_experience_list.resume_experience_description;
+                                return arr_get_work_experience_list;
+                            })
+                        }.bind(this));
+                    },
+                    getExperienceWorkCountries: function() {
+                        axios.get('api/getCountries').then(function(response) {
+                            this.arr_work_country_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceWorkCities: function() {
+                        axios.get('api/getCitiesList').then(function(response) {
+                            this.arr_work_city_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceCareerLevel: function() {
+                        axios.get('api/getCareerLevel').then(function(response) {
+                            this.arr_work_career_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceJobType: function() {
+                        axios.get('api/getJobType').then(function(response) {
+                            this.arr_work_type_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceJobIndustry: function() {
+                        axios.get('api/getJobIndustry').then(function(response) {
+                            this.arr_work_industry_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceJobDepartment: function() {
+                        axios.get('api/getJobIndustry').then(function(response) {
+                            this.arr_work_department_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceWorkMonthFrom: function() {
+                        axios.get('api/getMonth').then(function(response) {
+                            this.arr_work_from_month_list = response.data;
+                        }.bind(this));
+                    },
+                    getExperienceWorkMonthTo: function() {
+                        axios.get('api/getMonth').then(function(response) {
+                            this.arr_work_to_month_list = response.data;
+                        }.bind(this));
                     }
                 },
                 created: function() {
@@ -1156,6 +1107,15 @@
                     this.getEducationCityList();
                     this.getEducationWorkMonthFrom();
                     this.getEducationWorkMonthTo();
+                    this.getWorkExperienceList();
+                    this.getExperienceWorkCountries();
+                    this.getExperienceWorkCities();
+                    this.getExperienceCareerLevel();
+                    this.getExperienceJobType();
+                    this.getExperienceJobIndustry();
+                    this.getExperienceJobDepartment();
+                    this.getExperienceWorkMonthFrom();
+                    this.getExperienceWorkMonthTo();
                 }
             });
 
