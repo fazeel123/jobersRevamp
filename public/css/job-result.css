@@ -1,0 +1,135 @@
+.item-card9-imgs {
+    position: relative;
+    overflow: hidden;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 93%;
+    width:135px;
+    margin-top:10px;
+    margin-bottom:10px;
+}  
+
+@media (min-width: 768px)
+{
+  .pt-md-5, .py-md-5 {
+      padding-top: 1rem!important;
+  }
+}
+
+.card-footer
+{
+  padding:5px 15px 5px 15px !important;
+  background-color:transparent;
+}
+
+.job-list-img
+{
+  width:85px;
+  margin:auto;
+}   
+
+.card
+{
+  margin-bottom: 1.5rem;
+  width:100%;
+  border-left:1px solid rgba(0,0,0,.125) !important;
+}
+
+.list-unstyled
+{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.list-unstyled li
+{
+  margin: 5px 10px 5px 0px;
+  font-size: 13px;
+}
+
+.card-body
+{
+  display:flex;
+  padding:20px 10px 7px 15px;
+}
+
+.item-card9
+{
+  width:100%;
+}
+
+.job-list-favourite-time
+{
+  width:75px;
+  text-align:center;
+}
+
+.leading-tight
+{
+  width:95%;
+}
+
+.btn-apply
+{
+  font-size:12px;
+  font-weight:500;
+  padding:5px 15px;
+  border-radius:3px;
+}
+
+.power-ribbon-top-left {
+    top: 0px;
+}
+
+.power-ribbon {
+    width: 56px;
+    height: 65px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    font-size: 8px;
+}
+.text-warning {
+    color: #ffa22b !important;
+}
+
+.power-ribbon span {
+    position: absolute;
+    display: block;
+    width: 92px;
+    padding: 7px 0;
+    color: #fff;
+    font: 500 16px/1 Lato, sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    text-transform: capitalize;
+    text-align: center;
+}
+.power-ribbon-top-left span {
+    right: -10px;
+    top: 9px;
+    transform: rotate(-45deg);
+    font-size: 8px !important;
+}
+.bg-warning {
+    background-color: #ffa22b !important;
+    color: #fff;
+}   
+
+.btn-primary
+{
+  background:#1650e2 !important;
+  border-color:#1650e2 !important;
+}
+
+.fs-12
+{
+  font-size:12px;
+}
