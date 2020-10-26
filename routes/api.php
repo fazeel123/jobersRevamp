@@ -32,3 +32,5 @@ Route::get('getMonth', [API\DashboardCandidateResumeController::class, 'getMonth
 Route::get('getCareerLevel', [API\DashboardCandidateResumeController::class, 'getCareerLevel']);
 Route::get('getJobType', [API\DashboardCandidateResumeController::class, 'getJobType']);
 Route::get('getJobIndustry', [API\DashboardCandidateResumeController::class, 'getJobIndustry']);
+Route::get('getSalaryType', [API\DashboardCandidateJobPreferencesController::class, 'getSalaryType']);
+Route::get('getCurrencyList', [API\DashboardCandidateJobPreferencesController::class, 'getCurrencyList']);

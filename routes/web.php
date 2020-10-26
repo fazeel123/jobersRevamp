@@ -30,3 +30,4 @@ Route::patch('dashboard-candidates-resume-experience/update', [DashboardCandidat
 Route::get('dashboard-candidates-resume-experience-list/candidate-id={id}', [DashboardCandidate\CandidateResumeController::class, 'getResumeWorkExperienceList']);
 
 Route::get('dashboard-candidates-job-preferences', [DashboardCandidate\CandidateJobPreferenceController::class, 'getJobPreference']);
+Route::post('dashboard-candidates-job-preferences-salary/submit', [DashboardCandidate\CandidateJobPreferenceController::class, 'JobPreferencesSubmit']);

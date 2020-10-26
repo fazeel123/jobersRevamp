@@ -10,4 +10,8 @@ class CandidateJobPreferenceController extends Controller
     public function getJobPreference() {
         return view('dashboard-candidates.dashboard-candidates-job-preferences');
     }
+
+    public function JobPreferencesSubmit() {
+        dd(request()->all());
+    }
 }
