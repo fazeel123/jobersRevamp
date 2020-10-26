@@ -32,6 +32,7 @@
 
     <!--=================================
         Job Preferences -->
+    <div id="wrapper">
     <section>
         <div class="container">
             <div class="row">
@@ -402,6 +403,7 @@
             </div>
         </div>
     </section>
+    </div>
 
     @push('inline-script')
 
@@ -524,6 +526,20 @@
                 });
             });
 
+            const app = new Vue({
+                el: "#wrapper",
+                data() {
+                    return {
+
+                    }
+                },
+                method: {
+
+                },
+                created: function() {
+
+                }
+            });
         </script>
 
     @endpush

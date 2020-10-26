@@ -25,6 +25,4 @@ Route::post('dashboard-candidates-resume-education/submit', [DashboardCandidate\
 Route::get('dashboard-candidates-resume-education-list/candidate-id={id}', [DashboardCandidate\CandidateResumeController::class, 'getResumeEducationList']);
 Route::post('dashboard-candidates-resume-experience/submit', [DashboardCandidate\CandidateResumeController::class, 'getResumeWorkExperience']);
 
-Route::get('/job', function () {
-    return view('dashboard-candidates.dashboard-candidates-job-preferences');
-});
+Route::get('dashboard-candidates-job-preferences', [DashboardCandidate\CandidateJobPreferenceController::class, 'getJobPreference']);
