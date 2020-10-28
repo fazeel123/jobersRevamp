@@ -68,7 +68,7 @@ class CandidateProfileController extends Controller
             'candidate_photo' => ''
         ]);
 
-        // dd(request()->all());
+        dd(request()->all());
 
         $candidate = CandidateProfileModel::create($request->all());
 

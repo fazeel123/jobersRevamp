@@ -41,14 +41,6 @@
                             </div>
                             <br>
 
-                            {{-- <div class="form-group" v-for="(input,k) in inputs" :key="k">
-                                <input type="text" class="form-control" v-model="input.name">
-                                <span>
-                                    <i class="fas fa-minus-circle" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)"></i>
-                                    <i class="fas fa-plus-circle" @click="add(k)" v-show="k == inputs.length-1"></i>
-                                </span>
-                            </div> --}}
-
                             <form @submit="profileSubmit" id="candidate-profile">
 
                                 @csrf
@@ -188,60 +180,62 @@
                             <div class="section-title-02 mb-3">
                                 <h4>Languages</h4>
                             </div>
-                            <div v-for="(input,k) in inputs" :key="k">
+                            <div>
                                 <div class="form-row">
                                     <div class="form-group col-md-2">
                                         <label>&nbsp;</label>
                                         <div class="mt-3"><strong>Primary</strong></div>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-2" v-for="(add_language, index) in arr_add_language" :key="index">
                                         <label>Language</label>
-                                        <select id="candidate_lang" name="candidate_lang[]" v-model="language"
+                                        <select id="candidate_lang" name="candidate_lang" v-model="add_language.language"
                                             class="form-control @error('candidate_lang') is-invalid @enderror"
                                             value="{{ old('candidate_lang') }}">
                                             <option value="0">Select</option>
                                             <option v-for="data in arr_language" :value="data.language_code">@{{ data . language }}</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-2" v-for="(add_language_speak, index) in arr_add_language_speak" :key="index">
                                         <label>Spoken</label>
-                                        <select id="candidate_lang_speak" name="candidate_lang_speak[]" v-model="language_level_speak"
+                                        <select id="candidate_lang_speak" name="candidate_lang_speak" v-model="add_language_speak.language_level_speak"
                                             class="form-control @error('candidate_lang_speak') is-invalid @enderror"
-                                            value="{{ old('candidate_lang_speak[]') }}">
+                                            value="{{ old('candidate_lang_speak') }}">
                                             <option value="0">Select</option>
                                             <option v-for="data in arr_language_level_speak" :value="data.id">@{{ data . language_level }}</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-2" v-for="(add_language_write, index) in arr_add_language_write" :key="index">
                                         <label>Written</label>
-                                        <select id="candidate_lang_write" name="candidate_lang_write[]" v-model="language_level_write"
+                                        <select id="candidate_lang_write" name="candidate_lang_write" v-model="add_language_write.language_level_write"
                                             class="form-control @error('candidate_lang_write') is-invalid @enderror"
                                             value="{{ old('candidate_lang_write') }}">
                                             <option value="0">Select</option>
                                             <option v-for="data in arr_language_level_write" :value="data.id">@{{ data . language_level }}</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-2" v-for="(add_language_read, index) in arr_add_language_read" :key="index">
                                         <label>Read</label>
-                                        <select id="candidate_lang_read" name="candidate_lang_read[]" v-model="language_level_read"
+                                        <select id="candidate_lang_read" name="candidate_lang_read" v-model="add_language_read.language_level_read"
                                             class="form-control @error('candidate_lang_read') is-invalid @enderror"
                                             value="{{ old('candidate_lang_read') }}">
                                             <option value="0">Select</option>
                                             <option v-for="data in arr_language_level_read" :value="data.id">@{{ data . language_level }}</option>
                                         </select>
                                     </div>
+
                                     <div class="form-group col-md-1">
                                         <label> &nbsp; </label>
-                                        <a href="javascript:void(0)" class="d-block remove" style="padding:8px;" @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">
+                                        <a href="javascript:void(0)" class="d-block remove" style="padding:8px;" @click="removeLanguage(index)">
                                             <i class="fa fa-trash-alt text-danger"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <span class="newlangdiv"></span>
-                                <a href="javascript:void(0);" class="add-more-lang" @click="add(k)" v-show="k == inputs.length-1"> <i style="font-size:12px;"
-                                        class="fa fa-plus"></i> Add More </a> <span style="display:none;"
-                                    id="remaining">6</span>
                             </div>
+                            <span class="newlangdiv"></span>
+                            <a href="javascript:void(0)" class="add-more-lang" @click="addMultipleLanguage"> <i style="font-size:12px;"
+                                class="fa fa-plus"></i> Add More </a> <span style="display:none;"
+                            id="remaining">6</span>
+                            {{-- <button class="btn btn-md btn-primary" @click="save">Save</button> --}}
                         </div>
 
                         <div class="user-dashboard-info-box">
@@ -284,8 +278,8 @@
                             <div class="form-group mb-0 col-md-12">
                                 <textarea id="candidate_about" name="candidate_about"
                                     class="form-control self @error('candidate_about') is-invalid @enderror"
-                                    value="{{ old('candidate_about') }}" rows="5" v-model="candidate_about"
-                                    placeholder="Please write about your self">
+                                    value="{{ old('candidate_about') }}" rows="5"
+                                    placeholder="Please write about your self" v-model="candidate_about">
                                 </textarea>
                                 @error('candidate_about')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -370,7 +364,9 @@
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.min.js" // just for formatting/placeholders etc
             });
 
-
+            Vue.component('example-component', {
+                template: '<p>component</p>'
+            })
 
             const app = new Vue({
                 el: '#wrapper',
@@ -418,12 +414,15 @@
                         candidate_social_telegram: '',
                         candidate_social_linkedin: '',
                         candidate_about: '',
-                        output: '',
-                        inputs: [
-                            {
-                                name: ''
-                            }
-                        ]
+                        output1: '',
+                        output2: '',
+                        output3: '',
+                        output4: '',
+                        arr_languages_list: [],
+                        arr_add_language: [],
+                        arr_add_language_read: [],
+                        arr_add_language_write: [],
+                        arr_add_language_speak: []
                     }
                 },
                 methods: {
@@ -480,6 +479,23 @@
                             this.arr_language_level_write = response.data;
                         }.bind(this));
                     },
+                    addMultipleLanguage() {
+                        this.arr_add_language.push({
+                            language: ''
+                        });
+                        this.arr_add_language_read.push({
+                            language_level_read: ''
+                        });
+                        this.arr_add_language_write.push({
+                            language_level_write: ''
+                        });
+                        this.arr_add_language_speak.push({
+                            language_level_speak: ''
+                        });
+                    },
+                    removeLanguage(_index) {
+                        this.arr_languages_list.splice(_index, 1);
+                    },
                     profileSubmit: function() {
 
                         let currentObj = false;
@@ -497,10 +513,10 @@
                             candidate_country: this.country,
                             candidate_postal: this.candidate_postal,
                             candidate_address: this.candidate_address,
-                            candidate_lang: this.language,
-                            candidate_lang_speak: this.language_level_speak,
-                            candidate_lang_write: this.language_level_write,
-                            candidate_lang_read: this.language_level_read,
+                            candidate_lang: this.arr_add_language.language,
+                            candidate_lang_speak: this.arr_add_language.language_level_speak,
+                            candidate_lang_write: this.arr_add_language.language_level_write,
+                            candidate_lang_read: this.arr_add_language.language_level_read,
                             candidate_social_facebook: this.candidate_social_facebook,
                             candidate_social_twitter: this.candidate_social_twitter,
                             candidate_social_instagram: this.candidate_social_instagram,
@@ -516,11 +532,15 @@
                             currentObj.output = error;
                         });
                     },
-                    add(index) {
-                        this.inputs.push({ name: '' });
-                    },
-                    remove(index) {
-                        this.inputs.splice(index, 1);
+                    save() {
+                        console.log(JSON.stringify(this.arr_add_language));
+                        console.log(JSON.stringify(this.arr_add_language_read));
+                        console.log(JSON.stringify(this.arr_add_language_write));
+                        console.log(JSON.stringify(this.arr_add_language_speak));
+                        this.output1 = (JSON.stringify(this.arr_add_language));
+                        this.output2 = (JSON.stringify(this.arr_add_language_read));
+                        this.output3 = (JSON.stringify(this.arr_add_language_write));
+                        this.output4 = (JSON.stringify(this.arr_add_language_speak));
                     }
                 },
                 created: function() {

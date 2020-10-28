@@ -38,13 +38,13 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 	  Predefined Variables
 	*************************/
-	
+
 	var $window     = $(window),
     $document       = $(document),
     $body           = $('body'),
     $countdownTimer = $('.countdown'),
     $counter        = $('.counter');
-  
+
 	//Check if function exists
 	$.fn.exists = function () {
 		return this.length > 0;
@@ -53,7 +53,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		Preloader
     *************************/
-	
+
 	POTENZA.preloader = function () {
        $("#load").fadeOut();
        $('#pre-loader').delay(0).fadeOut('slow');
@@ -70,7 +70,7 @@ NOTE: This file contains all scripts for the actual Template.
 				}
 				var $subMenu = $(this).next(".dropdown-menu");
 				$subMenu.toggleClass('show');
-				
+
 				$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
 					$('.dropdown-submenu .show').removeClass("show");
 				});
@@ -109,7 +109,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		counter
 	*************************/
-	
+
 	POTENZA.counters = function () {
 		var counter = jQuery(".counter");
 		if (counter.length > 0) {
@@ -179,7 +179,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
         slickslider
 	*************************/
-	
+
 	POTENZA.slickslider = function () {
 		if ( $('.slider-for').exists() ) {
 			$('.slider-for').slick({
@@ -202,7 +202,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		Magnific Popup
 	*************************/
-	
+
 	POTENZA.mediaPopups = function () {
 		if ($(".popup-single").exists() || $(".popup-gallery").exists() || $('.modal-onload').exists() || $(".popup-youtube, .popup-vimeo, .popup-gmaps").exists()) {
 			if ($(".popup-single").exists()) {
@@ -224,7 +224,7 @@ NOTE: This file contains all scripts for the actual Template.
 					}
 				});
 			}
-			
+
 			if ( $(".popup-youtube, .popup-vimeo, .popup-gmaps").exists() ) {
 				$('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
 					disableOn: 700,
@@ -235,18 +235,18 @@ NOTE: This file contains all scripts for the actual Template.
 					fixedContentPos: false
 				});
 			}
-			
+
 			var $modal = $('.modal-onload');
 			if ( $modal.length > 0 ) {
 				$('.popup-modal').magnificPopup({
 					type: 'inline'
 				});
-				
+
 				$(document).on('click', '.popup-modal-dismiss', function (e) {
 					e.preventDefault();
 					$.magnificPopup.close();
 				});
-		
+
 				var elementTarget = $modal.attr('data-target');
 				setTimeout(function () {
 					$.magnificPopup.open({
@@ -267,7 +267,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		datetimepicker
 	*************************/
-	
+
 	POTENZA.datetimepickers = function () {
 		if ( $('.datetimepickers').exists() ) {
 			$('#datetimepicker-01, #datetimepicker-02').datetimepicker({
@@ -282,7 +282,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		select2
 	*************************/
-	
+
 	POTENZA.select2 = function () {
 		if ( $('.basic-select').exists() ) {
 			var select = jQuery(".basic-select");
@@ -295,7 +295,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		Range Slider
 	*************************/
-	
+
 	POTENZA.rangesliders = function () {
 		if ( $('.property-price-slider').exists() ) {
 			var rangeslider = jQuery(".rangeslider-wrapper");
@@ -311,7 +311,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 	   Countdown
 	*************************/
-	
+
 	POTENZA.countdownTimer = function () {
 		if ($countdownTimer.exists()) {
 			$countdownTimer.downCount({
@@ -324,7 +324,7 @@ NOTE: This file contains all scripts for the actual Template.
     /*************************
         BgSlider
 	*************************/
-	
+
 	POTENZA.bgSlider = function () {
 		var $bgSlider = $('#bg-slider');
 		if ( $bgSlider.exists() ) {
@@ -337,7 +337,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		scrollbar
 	*************************/
-	
+
 	POTENZA.scrollbar = function () {
 		var scrollbar = jQuery(".scrollbar");
 		if ( scrollbar.length > 0 ) {
@@ -351,7 +351,7 @@ NOTE: This file contains all scripts for the actual Template.
 				});
 				$(scroll_light).getNiceScroll().resize();
 			}
-		
+
 			// Chat Scroll
 			var scroll_dark = jQuery(".scroll_dark");
 			if ( scroll_dark.length > 0 ) {
@@ -368,7 +368,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		Secondary menu
 	*************************/
-	
+
 	POTENZA.secondarymenu = function () {
 		$(".secondary-menu ul li a[href^='#']").on('click', function(e) {
 
@@ -393,7 +393,7 @@ NOTE: This file contains all scripts for the actual Template.
 	/*************************
 		Back to top
 	*************************/
-	
+
 	POTENZA.goToTop = function () {
 		var $goToTop = $('#back-to-top');
 		$goToTop.hide();
@@ -401,7 +401,7 @@ NOTE: This file contains all scripts for the actual Template.
 			if ( $window.scrollTop() > 100 ) $goToTop.fadeIn();
 			else $goToTop.fadeOut();
 		});
-		
+
 		$goToTop.on("click", function () {
 			$('body,html').animate({
 				scrollTop: 0
@@ -413,12 +413,12 @@ NOTE: This file contains all scripts for the actual Template.
 	/****************************************************
 		POTENZA Window load and functions
 	****************************************************/
-	
+
 	// Window load functions
 	$window.on("load", function () {
 		POTENZA.preloader();
 	});
-	
+
 	// Document ready functions
 	$document.ready(function () {
 		POTENZA.counters(),
@@ -437,4 +437,5 @@ NOTE: This file contains all scripts for the actual Template.
 		POTENZA.carousel();
 	});
 })(jQuery);
+
 

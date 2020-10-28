@@ -4,6 +4,63 @@
 
     @include('sections/head-candidate')
 
+    <style>
+        .keyword-input-button {
+            float: right;
+            margin-top: -35px;
+            margin-right: 10px;
+            background: #ff8a00;
+            color: #fff !important;
+            padding: 4px 7px 3px 7px;
+            border-radius: 3px;
+        }
+
+        .keyword-remove i {
+            color: #fff;
+            padding-left: 7px;
+            cursor: pointer;
+        }
+
+        .keyword-j {
+            background: #ff8a00;
+            display: inline-block;
+            float: left;
+            padding: 0;
+            border-radius: 4px;
+            cursor: default;
+            margin: 7px 7px 5px 0;
+            height: 35px;
+            line-height: 35px;
+            box-sizing: border-box;
+            animation: KeywordIn 0.3s ease-in-out;
+            animation-fill-mode: both;
+            transition: 0.4s;
+            overflow: hidden;
+            max-width: 100%;
+            font-size: 14.7px;
+            color: #fff;
+        }
+
+        .keyword-text-j {
+            padding: 5px;
+        }
+
+        .badge span {
+            font-size: 14px !important;
+        }
+
+        .badge button span {
+            color: #f00 !important;
+            font-size: 20px !important;
+        }
+
+        .dashboardcode-bsmultiselect .dropdown-menu {
+            transform: translate3d(4px, 70px, 0px) !important;
+            width: 98% !important;
+        }
+
+    </style>
+
     <section>
         <div class="container">
             <div class="row">
@@ -28,10 +85,10 @@
         </div>
     </section>
     <!--=================================
-    Dashboard Nav -->
+                    Dashboard Nav -->
 
     <!--=================================
-        Job Preferences -->
+                        Job Preferences -->
     <div id="wrapper">
         <section>
             <div class="container">
@@ -48,29 +105,36 @@
                                         <div class="form-group col-md-4 select-border">
                                             <select class="form-control" name="salary" id="salary" v-model="salary">
                                                 <option value="0">Select any Salary Type</option>
-                                                <option v-for="data in arr_salary" :value="data.salary_id">@{{ data.salary_type }}</option>
+                                                <option v-for="data in arr_salary" :value="data.salary_id">
+                                                    @{{ data . salary_type }}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <select class="form-control text-center" style="width:86px;" name="currency" id="currency" v-model="currency">
+                                                    <select class="form-control text-center" style="width:86px;"
+                                                        name="currency" id="currency" v-model="currency">
                                                         <option value="0">Select any</option>
-                                                        <option v-for="data in arr_currency" :value="data.currency_id">@{{ data.currency_name + " (" + data.currency_code + ") "}}</option>
+                                                        <option v-for="data in arr_currency" :value="data.currency_id">
+                                                            @{{ data . currency_name + ' (' + data . currency_code + ') ' }}
+                                                        </option>
                                                     </select>
                                                 </div>
-                                                <input type="text" class="form-control" name="salary_min" id="salary_min" v-model="salary_min" placeholder="Min" value="{{ old('salary_min') }}">
+                                                <input type="text" class="form-control" name="salary_min" id="salary_min"
+                                                    v-model="salary_min" placeholder="Min" value="{{ old('salary_min') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="input-group mb-2">
-                                                <input type="text" class="form-control" name="salary_max" id="salary_max" v-model="salary_max" placeholder="Max" value="{{ old('salary_max')}}">
+                                                <input type="text" class="form-control" name="salary_max" id="salary_max"
+                                                    v-model="salary_max" placeholder="Max" value="{{ old('salary_max') }}">
                                             </div>
+
                                         </div>
 
-
                                         <div class="form-group col-md-12 mt-4">
-                                            <button @click="preferredSalarySubmit()" class="btn btn-md btn-primary">Save</button>
+                                            <button @click="preferredSalarySubmit()"
+                                                class="btn btn-md btn-primary">Save</button>
                                         </div>
                                     </form>
                                 </div>
@@ -118,11 +182,11 @@
                                             <label>Skills</label>
                                             <div class="keywords-container submit-field">
                                                 <div class="keyword-input-container">
-                                                    <input style="height:auto;" type="text" class="keyword-input form-control"
-                                                        name="keyword_input" id="keyword_input"
-                                                        placeholder="Job Title, Skills Or Keywords">
+                                                    <input style="height:auto;" type="text"
+                                                        class="keyword-input form-control" name="keyword_input"
+                                                        id="keyword_input" placeholder="Job Title, Skills Or Keywords">
                                                     <input type="hidden" class="tags" name="resume_skills" id="job_skills">
-                                                    <a onclick="javascript:onclick='addKeyword()'"
+                                                    <a onclick="addKeyword()"
                                                         class="keyword-input-button ripple-effect"><i
                                                             class="fa fa-plus"></i></a>
                                                 </div>
@@ -146,7 +210,8 @@
                                         <div class="form-group col-md-6">
                                             <label>Industry</label><!-- tokenize-sample-demo1 -->
                                             <select class="form-control multi-industry" multiple>
-                                                <option value="Accounting / Finance / Banking">Accounting / Finance / Banking
+                                                <option value="Accounting / Finance / Banking">Accounting / Finance /
+                                                    Banking
                                                 </option>
                                                 <option value="Admin / Clerical">Admin / Clerical</option>
                                                 <option value="Arts / Media / Entertainment / Communication">Arts / Media /
@@ -157,23 +222,29 @@
                                                 <option value="Education / Training / E-Learning">Education / Training /
                                                     E-Learning</option>
                                                 <option value="Government">Government</option>
-                                                <option value="Health / Pharmaceuticals / Biotech">Health / Pharmaceuticals /
+                                                <option value="Health / Pharmaceuticals / Biotech">Health / Pharmaceuticals
+                                                    /
                                                     Biotech</option>
                                                 <option value="Hotel / Restaurant / Tourism">Hotel / Restaurant / Tourism
                                                 </option>
                                                 <option value="IT / Computer / Hardware">IT / Computer / Hardware</option>
                                                 <option value="Management / Secretarial Services">Management / Secretarial
                                                     Services</option>
-                                                <option value="Manufacturing / Production / FMCG">Manufacturing / Production /
+                                                <option value="Manufacturing / Production / FMCG">Manufacturing / Production
+                                                    /
                                                     FMCG</option>
                                                 <option value="Others">Others</option>
-                                                <option value="Recruitment / Staffing / HR">Recruitment / Staffing / HR</option>
-                                                <option value="Retail / Consumer Services">Retail / Consumer Services</option>
-                                                <option value="Sales / Marketing / PR / Advertising">Sales / Marketing / PR /
+                                                <option value="Recruitment / Staffing / HR">Recruitment / Staffing / HR
+                                                </option>
+                                                <option value="Retail / Consumer Services">Retail / Consumer Services
+                                                </option>
+                                                <option value="Sales / Marketing / PR / Advertising">Sales / Marketing / PR
+                                                    /
                                                     Advertising</option>
                                                 <option value="Sports">Sports</option>
                                                 <option value="Wholsale / Distribution">Wholsale / Distribution</option>
-                                                <option value="Logistics / Shipping / Storage / Transport">Logistics / Shipping
+                                                <option value="Logistics / Shipping / Storage / Transport">Logistics /
+                                                    Shipping
                                                     / Storage / Transport</option>
                                             </select>
                                         </div>
@@ -319,7 +390,8 @@
                                         <div class="form-group col-md-3">
                                             <div class="custom-control custom-checkbox d-inline ml-3">
                                                 <input type="checkbox" id="levelp" class="custom-control-input">
-                                                <label class="custom-control-label" for="levelp">Part Time / Temporary</label>
+                                                <label class="custom-control-label" for="levelp">Part Time /
+                                                    Temporary</label>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-3">
@@ -407,10 +479,6 @@
                 }
             });
 
-        </script>
-        <script>
-            /*  Keywords
-                /*--------------------------------------------------*/
             $(".keywords-container").each(function() {
                 var keywordInput = $(this).find(".keyword-input");
                 var keywordsList = $(this).find(".keywords-list");
@@ -485,7 +553,6 @@
 
             });
 
-
             $(document).ready(function() {
                 $('.add-more-loc').click(function() {
                     var remind = parseInt($('#remaining').text());
@@ -551,11 +618,11 @@
                             resume_job_preferences_salary_from: this.salary_min,
                             resume_job_preferences_salary_to: this.salary_max
 
-                        }).then(function (response) {
+                        }).then(function(response) {
                             currentObj.salaryOutput = response.data;
                         }).then(response => {
                             window.location = response.data.redirect;
-                        }).catch(function (error) {
+                        }).catch(function(error) {
                             currentObj.salaryOutput = error;
                         });
                     }
@@ -565,7 +632,8 @@
                     this.getCurrencyList();
                 }
             });
-        </script>
+
+        </>
 
     @endpush
 
